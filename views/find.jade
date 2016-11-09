@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1= title
+  - each pelicula in pelis
+    div(style="float:left;")
+        img(src= "#{pelicula.img}") 
+        br
+        label #{pelicula.titulo}
+        br
+        a(href="#{pelicula.enlace}") Torrent
+        br
+        - if(pelicula.calidad.search("HD")!=-1 || pelicula.calidad.search("BluRay")!=-1)
+           label(style="background-color: green; color:white;") #{pelicula.calidad}
+        -else if (pelicula.calidad.search("DVD")!=-1) 
+            label(style="background-color: yellow;") #{pelicula.calidad}
+        -else
+          label(style="background-color: red;") #{pelicula.calidad}
+        br
+        label #{pelicula.tamano}
+        br
+        label #{pelicula.torrent}
+        br
+        br
+ 
+    
+  

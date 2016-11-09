@@ -1,0 +1,24 @@
+{
+  "name": "hellofinder",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "cheerio": "^0.22.0",
+    "cookie-parser": "~1.4.3",
+    "cron": "^1.1.1",
+    "debug": "~2.2.0",
+    "download-file": "^0.1.5",
+    "express": "~4.14.0",
+    "jade": "~1.11.0",
+    "morgan": "~1.7.0",
+    "node-telegram-bot-api": "^0.24.0",
+    "request": "^2.78.0",
+    "serve-favicon": "~2.3.0",
+    "sync-request": "^3.0.1",
+    "transmission": "^0.4.5"
+  }
+}

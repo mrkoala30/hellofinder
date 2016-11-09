@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  h3 Enlace: 
+   a(href="#{name}") Torrent
+  br
+  br
+  form(name="add-estimation", method="post", action="http://localhost:3000/torrent/descargar")
+       div.actions
+           input(type="submit", value="Añadir a Transmission")
+  -if(error!=null)
+   label #{error}
+  -if(succes!=null)
+   label #{succes}

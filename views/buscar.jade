@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  h1 Newpct
+  h3 BUSCAR
+  div(style="float:left;")
+    form(name="add-estimation", method="post", action="http://localhost:3000/buscar/buscar")
+        div.input
+            span.label Buscar
+            input(pattern='.{4,}', required='', title='minimo 4 caracteres ', type="text", name="title")
+            br
+            br
+        div.actions
+            input(type="submit", value="Buscar")
+  div(style="float:left;")
+  div(style="float:left;")
+   label |--------------|
+  div(style="float:left;")
+    form(name="add-estimation", method="post", action="http://localhost:3000/buscar/descargar")
+        div.input
+            span.label Descargar
+            input(pattern='.{4,}', required='', title='minimo 4 caracteres ', type="text", name="title")
+            span.label Temporada #
+            input(pattern='.{1,}', required='', title='minimo 1 caracteres ', type="text", name="temporada")
+            p Filtros de descarga: Numero de temporada + calidad AC3
+        div.actions
+            input(type="submit", value="Descargar")
+  br
+  br
+  br
+  br
+  h3 Resultado:
+  br
+  -if(result!=null)
+   - each info in result
+     label #{info.nombre}
+     br
+     a(href="#{info.enlace}") Torrent
+     br
+     br
+  -if(descarga!=null)
+   br
+   - each info in descarga
+     a(href="#{info}") #{info}
+     br
+     br
