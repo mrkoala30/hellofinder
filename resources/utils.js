@@ -1,7 +1,7 @@
 var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
-var torrent = "http://localhost:3000/torrent/";
+var config = require('../resources/config.js');
 
 
 module.exports.getPage = function (page,callback) {
@@ -37,7 +37,7 @@ module.exports.getPage = function (page,callback) {
                 var pelicula = {
                     titulo: name,
                     img : li[i].children[1].children[1].children[1].attribs.src,
-                    enlace : torrent + replaceAll(li[i].children[1].attribs.href,"/","*"),
+                    enlace : config.url.dir + replaceAll(li[i].children[1].attribs.href,"/","*"),
                     calidad: calidad,
                     tamano: tamano,
                     torrent: " "
