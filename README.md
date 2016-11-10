@@ -1,2 +1,2 @@
-# hellofinder
+# Hellofinder
 Leave advertising behind
