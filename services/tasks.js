@@ -4,6 +4,7 @@ var cheerio = require('cheerio');
 var config = require('../resources/config.js');
 var CronJob = require('cron').CronJob;
 var fs = require('fs');
+var utils = require('../resources/utils.js');
 
 //Create connection whit Telegram bot
 var TelegramBot = require('node-telegram-bot-api');
@@ -12,85 +13,45 @@ var bot = new TelegramBot(token, {polling: true});
 var chatid = 210998720;
 
 
+module.exports.updateMovies = function () {
+    var page =  "http://www.newpct.com/peliculas-castellano/estrenos-de-cine/";
+    var file = "last_movie.txt";
+    update(page,file);
+};
+
+module.exports.updateSeries = function () {
+    var page = "http://www.newpct.com/series-alta-definicion-hd/"
+    var file = "last_serie.txt";
+    update(page,file);
+};
 
 
-
-
-
-
-class Task {
-    constructor(){
-        var li = "";
-        new CronJob('0 * * * * *', function() {
-             var pelicula = {};
-            request("http://www.newpct.com/peliculas-castellano/estrenos-de-cine/", function(error, response, body) {
-                if(error) {
-                    console.log("Error: " + error);
+var update = function(page,file){
+    new CronJob('0 * * * * *', function() {
+        utils.getPage(false,page,function (err,response) {
+            var peliculas = response;
+            var posi = 0;
+            fs.readFile(file, 'utf8', function (err,data) {
+                if (err) {
+                    return console.log(err);
                 }
-                console.log("Status code: " + response.statusCode);
-                var $ = cheerio.load(body);
-
-                $('#content-category').filter(function(){
-
-                    var data = $(this);
-                    li = data.find( "li" );
-
-                        var calidad = "";
-                        var tamano = "";
-                        for(var u = 0;u<7; u=u+2){
-                                var text = li[0].children[1].children[1].children[3].children[3].children[u].data;
-                                if(text.search("Calidad:")!=-1){
-                                    calidad = text.slice(text.search("Calidad:")+8,text.length);
-                                }
-                                if(text.search("ño:")!=-1){
-                                    tamano = text.slice(text.search("ño:")+3,text.length);
-                                }
-                        }
-                        var name = li[0].children[1].children[1].children[3].children[1].children[0].data;
-                        if(name.length>23){
-                            name = name.slice(0,19);
-                        }
-                        pelicula = {
-                            titulo: name,
-                            img : li[0].children[1].children[1].children[1].attribs.src,
-                            enlace :  li[0].children[1].attribs.href,
-                            calidad: calidad,
-                            tamano: tamano,
-                            torrent: " "
-                        };
-                });
-                //console.log(pelicula);
-                var posi = 0;
-                fs.readFile('last_movie.txt', 'utf8', function (err,data) {
-                    if (err) {
-                        return console.log(err);
-                    }
-                    if(data!=pelicula.enlace){
-                        //se ha actualizado
-                        for(var i = 1;i<5;i++){
-                            if(data==li[i].children[1].attribs.href){
-                              posi = i;
+                if(data!=peliculas[0].enlace){
+                    //se ha actualizado
+                    for(k in peliculas){
+                        if(data==peliculas[k].enlace){
+                            for(var u = 1;u<k;u++){
+                                bot.sendPhoto(chatid,peliculas[k].img, {caption:"Titulo: "+peliculas[k].titulo+" \n Calidad: "+peliculas[k].calidad+" \n Enlace: "+peliculas[k].enlace});
                             }
                         }
-                        if(posi>1){ //2
-                            for(var u = 1;u<posi;u++){
-                                bot.sendPhoto(chatid,li[u].children[1].children[1].children[1].attribs.src, {caption:"Titulo: - \n Calidad: - \n Enlace: "+li[u].children[1].attribs.href});
-                            }
-                        }
-                        bot.sendPhoto(chatid,pelicula.img, {caption:"Titulo: "+pelicula.titulo+"\n Calidad: "+pelicula.calidad +"\n Enlace: "+pelicula.enlace});
-                        fs.writeFile('last_movie.txt', pelicula.enlace);
                     }
-                });
+                    bot.sendPhoto(chatid,peliculas[0].img, {caption:"Titulo: "+peliculas[0].titulo+"\n Calidad: "+peliculas[0].calidad +"\n Enlace: "+peliculas[0].enlace});
+                    fs.writeFile(file, peliculas[0].enlace,function (err) {
+                    });
+                }
             });
-        console.log('Check Movie Update Newpct.com');
-        }, null, true, 'America/Los_Angeles');
-    }
-}
-
-module.exports = Task;
-
-
-
-
+        });
+        console.log('Check Update Newpct.com');
+    }, null, true, 'Europe/Madrid');
+};
 
 

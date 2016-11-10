@@ -4,7 +4,7 @@ var cheerio = require('cheerio');
 var config = require('../resources/config.js');
 
 
-module.exports.getPage = function (page,callback) {
+module.exports.getPage = function (link,page,callback) {
     request(page, function(error, response, body) {
         if(error) {
             console.log("Error: " + error);
@@ -34,10 +34,16 @@ module.exports.getPage = function (page,callback) {
                 if(name.length>23){
                     name = name.slice(0,19);
                 }
+                var links = "";
+                if(link){
+                    links = config.url.dir + "/torrent/"+replaceAll(li[i].children[1].attribs.href,"/","*");
+                }else{
+                    links = config.url.dir + "/torrent/"+li[i].children[1].attribs.href;
+                }
                 var pelicula = {
                     titulo: name,
                     img : li[i].children[1].children[1].children[1].attribs.src,
-                    enlace : config.url.dir + "/torrent/"+replaceAll(li[i].children[1].attribs.href,"/","*"),
+                    enlace : links,
                     calidad: calidad,
                     tamano: tamano,
                     torrent: " "
@@ -56,16 +62,3 @@ var replaceAll = function( text, busca, reemplaza ){
         text = text.toString().replace(busca,reemplaza);
     return text;
 };
-
-/*
- module.exports.getUser = function (name,callback) {
-
- var query = "SELECT * from "+table_name+" where username='"+name+"'";
- //console.log(query);
- dbfunctions.getTableData(query,function (err,result){
- (err)
-
-
- });
- };
- */

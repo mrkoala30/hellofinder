@@ -31,7 +31,8 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 server.timeout = 60000;
-new Task();
+Task.updateMovies();
+Task.updateSeries();
 
 /**
  * Normalize a port into a number, string, or false.

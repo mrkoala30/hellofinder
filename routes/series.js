@@ -5,7 +5,7 @@ var utils = require('../resources/utils.js');
 //get Series Estrenos
 router.get('/', function(req, res) {
     var page = "http://www.newpct.com/series-alta-definicion-hd/";
-    utils.getPage(page,function(err,response){
+    utils.getPage(true,page,function(err,response){
         if(err){
           console.log(err);
         }else{
