@@ -1,9 +1,9 @@
 var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
+var config = require('../resources/config.js');
 var http = require('http');
 var fs = require('fs');
-var download = require('download-file');
 var transmission = require ('transmission');
 var router = express.Router();
 
@@ -29,15 +29,10 @@ router.get('/:name', function(req, res, next) {
             var $ = cheerio.load(body);
                 $('.external-url').filter(function(){
                     var data = $(this);
-                
                         torrent = data[0].attribs.href;
-                    
-                    //peliculas[i].torrent = data[0].attribs.href;
-                    //  console.log(data[0].attribs.href);
                 });
-             res.render('torrent',{name:torrent
+             res.render('torrent',{url:config.url.dir,name:torrent
                     });
-            //res.download(torrent); 
             });
 });
 

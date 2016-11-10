@@ -1,14 +1,14 @@
 var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
+var config = require('../resources/config.js');
 //ar fs = require('fs');
 var sync_request = require('sync-request');
 var router = express.Router();
-var torrent = "localhost:3000/torrent/";
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('buscar',{
+    res.render('buscar',{url:config.url.dir
     });      
 });
 
@@ -30,7 +30,7 @@ router.post('/buscar',function(req,res, next){
              if(tabla!=null){
                  for (var i = 0; i < tabla.length; ++i) {
                   var result = {
-                    enlace: torrent + replaceAll(tabla[i].attribs.href,"/","*"),
+                    enlace: config.url.dir + replaceAll(tabla[i].attribs.href,"/","*"),
                     nombre: tabla[i].attribs.title
                   } 
                   resultado.push(result);
@@ -38,7 +38,7 @@ router.post('/buscar',function(req,res, next){
               }
              }
          });
-           res.render('buscar',{result:resultado
+           res.render('buscar',{url:config.url.dir,result:resultado
                     });
         });
 });
@@ -88,7 +88,7 @@ router.post('/descargar', function(req, res, next) {
                 } 
          }
          console.log(linkse);
-         res.render('buscar',{descarga:linkse});
+         res.render('buscar',{url:config.url.dir,descarga:linkse});
     });
        
 });

@@ -1,14 +1,22 @@
 var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
+var config = require('../resources/config.js');
 var CronJob = require('cron').CronJob;
 var fs = require('fs');
-var TelegramBot = require('node-telegram-bot-api');
-var torrent = "http://localhost:3000/torrent/";
 
+//Create connection whit Telegram bot
+var TelegramBot = require('node-telegram-bot-api');
 var token = '265164835:AAEv-6T23U420Hl6SbqRdA18RROoM8uVFEs';
 var bot = new TelegramBot(token, {polling: true});
 var chatid = 210998720;
+
+
+
+
+
+
+
 
 class Task {
     constructor(){

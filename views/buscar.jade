@@ -4,7 +4,7 @@ block content
   h1 Newpct
   h3 BUSCAR
   div(style="float:left;")
-    form(name="add-estimation", method="post", action="http://localhost:3000/buscar/buscar")
+    form(name="add-estimation", method="post", action="#{url}/buscar/buscar")
         div.input
             span.label Buscar
             input(pattern='.{4,}', required='', title='minimo 4 caracteres ', type="text", name="title")
@@ -16,7 +16,7 @@ block content
   div(style="float:left;")
    label |--------------|
   div(style="float:left;")
-    form(name="add-estimation", method="post", action="http://localhost:3000/buscar/descargar")
+    form(name="add-estimation", method="post", action="#{url}/buscar/descargar")
         div.input
             span.label Descargar
             input(pattern='.{4,}', required='', title='minimo 4 caracteres ', type="text", name="title")

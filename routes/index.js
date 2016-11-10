@@ -1,9 +1,10 @@
 var express = require('express');
+var config = require('../resources/config.js');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'HelloFinder' });
+  res.render('index', { url:config.url.dir,title: 'HelloFinder' });
 });
 
 module.exports = router;

@@ -6,7 +6,7 @@ block content
    a(href="#{name}") Torrent
   br
   br
-  form(name="add-estimation", method="post", action="http://localhost:3000/torrent/descargar")
+  form(name="add-estimation", method="post", action="#{url}/torrent/descargar")
        div.actions
            input(type="submit", value="Añadir a Transmission")
   -if(error!=null)
