@@ -23,7 +23,6 @@ module.exports.updateSeries = function () {
     var page = "http://www.newpct.com/series-alta-definicion-hd/"
     var file = "last_serie.txt";
     update(page,file,function (data) {
-        console.log(data);
        if(data!=null){
            //leer fichero con series que quiero descargar
            //.......
