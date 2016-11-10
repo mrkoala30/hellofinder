@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var config = require('../resources/config.js');
 var utils = require('../resources/utils.js');
 
 //get Series Estrenos
@@ -9,7 +10,7 @@ router.get('/', function(req, res) {
         if(err){
           console.log(err);
         }else{
-            res.render('find',{pelis: response
+            res.render('find',{url:config.url.dir,pelis: response
             });
         }
     });
