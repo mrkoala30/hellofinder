@@ -22,11 +22,24 @@ module.exports.updateMovies = function () {
 module.exports.updateSeries = function () {
     var page = "http://www.newpct.com/series-alta-definicion-hd/"
     var file = "last_serie.txt";
-    update(page,file);
+    update(page,file,function (data) {
+        console.log(data);
+       if(data!=null){
+           //leer fichero con series que quiero descargar
+           //.......
+           for(k in data){
+               if(data[k].titulo=="The Making of the M"){
+                   console.log("Descargando serie: "+ data[k].titulo);
+               }
+           }
+
+       }
+    });
 };
 
 
-var update = function(page,file){
+var update = function(page,file,callback){
+    var nuevo = [];
     new CronJob('0 * * * * *', function() {
         utils.getPage(false,page,function (err,response) {
             var peliculas = response;
@@ -40,13 +53,18 @@ var update = function(page,file){
                     for(k in peliculas){
                         if(data==peliculas[k].enlace){
                             for(var u = 1;u<k;u++){
+                                nuevo.push(peliculas[k]);
                                 bot.sendPhoto(chatid,peliculas[k].img, {caption:"Titulo: "+peliculas[k].titulo+" \n Calidad: "+peliculas[k].calidad+" \n Enlace: "+peliculas[k].enlace});
                             }
                         }
                     }
+                    nuevo.push(peliculas[0]);
                     bot.sendPhoto(chatid,peliculas[0].img, {caption:"Titulo: "+peliculas[0].titulo+"\n Calidad: "+peliculas[0].calidad +"\n Enlace: "+peliculas[0].enlace});
                     fs.writeFile(file, peliculas[0].enlace,function (err) {
                     });
+                }
+                if (callback) {
+                    callback(nuevo);
                 }
             });
         });
