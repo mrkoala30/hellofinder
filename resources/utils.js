@@ -36,7 +36,8 @@ module.exports.getPage = function (link,page,callback) {
                 }
                 var links = "";
                 if(link){
-                    links = config.url.dir + "/torrent/"+replaceAll(li[i].children[1].attribs.href,"/","*");
+                    links = li[i].children[1].attribs.href;
+                    //links = config.url.dir + "/torrent/"+replaceAll(li[i].children[1].attribs.href,"/","*");
                 }else{
                     links = config.url.dir + "/torrent/"+li[i].children[1].attribs.href;
                 }

@@ -36,6 +36,27 @@ router.get('/:name', function(req, res) {
             });
 });
 
+router.post('/findtorrent',function(req,res){
+    var link = req.body.link;
+    request(link, function(error, response, body) {
+        if(error) {
+            console.log("Error: " + error);
+        }
+        console.log("Status code: " + response.statusCode);
+        var $ = cheerio.load(body);
+        $('.external-url').filter(function(){
+            var data = $(this);
+            torrent = data[0].attribs.href;
+        });
+        res.render('torrent',{url:config.url.dir,name:torrent
+        });
+    });
+
+});
+
+
+
+
 router.post('/descargar',function(req,res){
 
     var file = fs.createWriteStream("./public/torrent.torrent");

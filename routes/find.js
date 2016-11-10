@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var utils = require('../resources/utils.js');
+var config = require('../resources/config.js');
 
 //get Peliculas Estrenos
 router.get('/', function(req, res) {
@@ -9,7 +10,7 @@ router.get('/', function(req, res) {
         if(err){
           console.log(err);
         }else{
-            res.render('find',{pelis: response
+            res.render('find',{url:config.url.dir,pelis: response
             });
         }
     });

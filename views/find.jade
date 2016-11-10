@@ -9,6 +9,10 @@ block content
         label #{pelicula.titulo}
         br
         a(href="#{pelicula.enlace}") Torrent
+        form(name="add-estimation", method="post", action="#{url}/torrent/findtorrent")
+            input(type="hidden", name="link" value="#{pelicula.enlace}")
+            div.action
+                input(type="submit", value="Torrent")
         br
         - if(pelicula.calidad.search("HD")!=-1 || pelicula.calidad.search("BluRay")!=-1)
            label(style="background-color: green; color:white;") #{pelicula.calidad}
