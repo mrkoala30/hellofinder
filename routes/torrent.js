@@ -17,7 +17,7 @@ var torrent = "";
 
 
 /* GET users listing. */
-router.get('/:name', function(req, res, next) {
+router.get('/:name', function(req, res) {
    
     var link = replaceAll(req.params.name,"*","/");
 
@@ -36,7 +36,7 @@ router.get('/:name', function(req, res, next) {
             });
 });
 
-router.post('/descargar',function(req,res, next){
+router.post('/descargar',function(req,res){
 
     var file = fs.createWriteStream("./public/torrent.torrent");
 
@@ -61,6 +61,6 @@ var replaceAll = function( text, busca, reemplaza ){
         while (text.toString().indexOf(busca) != -1)
             text = text.toString().replace(busca,reemplaza);
         return text;
-    }
+    };
 
 module.exports = router;

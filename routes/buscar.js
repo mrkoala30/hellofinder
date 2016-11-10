@@ -7,12 +7,12 @@ var sync_request = require('sync-request');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
     res.render('buscar',{url:config.url.dir
     });      
 });
 
-router.post('/buscar',function(req,res, next){
+router.post('/buscar',function(req,res){
         var resultado = [];
         var name = req.body.title;
         //console.log(name);
@@ -32,7 +32,7 @@ router.post('/buscar',function(req,res, next){
                   var result = {
                     enlace: config.url.dir + replaceAll(tabla[i].attribs.href,"/","*"),
                     nombre: tabla[i].attribs.title
-                  } 
+                  };
                   resultado.push(result);
                   //console.log(resultado);
               }
@@ -43,7 +43,7 @@ router.post('/buscar',function(req,res, next){
         });
 });
 
-router.post('/descargar', function(req, res, next) {
+router.post('/descargar', function(req, res) {
      var resultado = [];
         var name = req.body.title;
         var temporada = req.body.temporada;
@@ -64,7 +64,7 @@ router.post('/descargar', function(req, res, next) {
                   var result = {
                     enlace: tabla[i].attribs.href,
                     nombre: tabla[i].attribs.title
-                  } 
+                  };
                   resultado.push(result);
                  // console.log(resultado);
               }
@@ -97,6 +97,6 @@ var replaceAll = function( text, busca, reemplaza ){
         while (text.toString().indexOf(busca) != -1)
             text = text.toString().replace(busca,reemplaza);
         return text;
-    }
+    };
 
 module.exports = router;

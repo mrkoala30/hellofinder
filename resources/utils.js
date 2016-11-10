@@ -1,7 +1,6 @@
 var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
-var router = express.Router();
 var torrent = "http://localhost:3000/torrent/";
 
 
@@ -34,7 +33,7 @@ module.exports.getPage = function (page,callback) {
                 var name = li[i].children[1].children[1].children[3].children[1].children[0].data;
                 if(name.length>23){
                     name = name.slice(0,19);
-                };
+                }
                 var pelicula = {
                     titulo: name,
                     img : li[i].children[1].children[1].children[1].attribs.src,
