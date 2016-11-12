@@ -21,7 +21,7 @@ router.post('/findtorrent',function(req,res){
         if(error) {
             console.log("Error: " + error);
         }
-        console.log("Status code: " + response.statusCode);
+       // console.log("Status code: " + response.statusCode);
         var $ = cheerio.load(body);
         $('.external-url').filter(function(){
             var data = $(this);
@@ -47,9 +47,9 @@ router.post('/descargar',function(req,res){
                 res.render('torrent',{name:torrent,error:"Error"
                 });
             }
-            res.render('torrent',{name:torrent,succes:"Descargando"
+            res.render('torrent',{url:config.url.dir,name:torrent,succes:"Descargando"
             });
-            console.log(arg);
+            //console.log(arg);
         });
     });
 });

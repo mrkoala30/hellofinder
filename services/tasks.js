@@ -31,7 +31,6 @@ module.exports.updateSeries = function () {
                    console.log("Descargando serie: "+ data[k].titulo);
                }
            }
-
        }
     });
 };
@@ -67,7 +66,7 @@ var update = function(page,file,callback){
                 }
             });
         });
-        console.log('Check Update Newpct.com');
+       // console.log('Check Update Newpct.com');
     }, null, true, 'Europe/Madrid');
 };
 

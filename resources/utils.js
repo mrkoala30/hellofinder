@@ -9,7 +9,7 @@ module.exports.getPage = function (link,page,callback) {
         if(error) {
             console.log("Error: " + error);
         }
-        console.log("Status code: " + response.statusCode);
+        //console.log("Status code: " + response.statusCode);
         var $ = cheerio.load(body);
 
         $('#content-category').filter(function(){

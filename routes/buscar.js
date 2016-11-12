@@ -22,7 +22,7 @@ router.post('/buscar',function(req,res){
         if(error) {
                 console.log("Error: " + error);
             }
-        console.log("Status code: " + response.statusCode);
+        //console.log("Status code: " + response.statusCode);
         var $ = cheerio.load(body);
          $('#categoryTable').filter(function(){
              var data = $(this);
@@ -30,7 +30,7 @@ router.post('/buscar',function(req,res){
              if(tabla!=null){
                  for (var i = 0; i < tabla.length; ++i) {
                   var result = {
-                    enlace: config.url.dir + replaceAll(tabla[i].attribs.href,"/","*"),
+                    enlace: config.url.dir +"/"+ replaceAll(tabla[i].attribs.href,"/","*"),
                     nombre: tabla[i].attribs.title
                   };
                   resultado.push(result);
@@ -53,7 +53,7 @@ router.post('/descargar', function(req, res) {
         if(error) {
                 console.log("Error: " + error);
             }
-        console.log("Status code: " + response.statusCode);
+        //console.log("Status code: " + response.statusCode);
 
         var $ = cheerio.load(body);
           $('#categoryTable').filter(function(){
@@ -87,7 +87,7 @@ router.post('/descargar', function(req, res) {
                      });
                 } 
          }
-         console.log(linkse);
+         //console.log(linkse);
          res.render('buscar',{url:config.url.dir,descarga:linkse});
     });
        
