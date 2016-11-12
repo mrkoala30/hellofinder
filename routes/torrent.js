@@ -27,8 +27,10 @@ router.post('/findtorrent',function(req,res){
             var data = $(this);
             torrent = data[0].attribs.href;
         });
-        res.render('torrent',{url:config.url.dir,name:torrent
+        res.send({name:torrent,youtube:"http://www.youtube.com/embed/W-Q7RMpINVo"
         });
+        //res.render('torrent',{url:config.url.dir,name:torrent
+        //});
     });
 
 });
@@ -47,8 +49,10 @@ router.post('/descargar',function(req,res){
                 res.render('torrent',{name:torrent,error:"Error"
                 });
             }
-            res.render('torrent',{url:config.url.dir,name:torrent,succes:"Descargando"
+            res.send({url:config.url.dir,name:torrent,succes:"Descargando"
             });
+            //res.render('torrent',{url:config.url.dir,name:torrent,succes:"Descargando"
+            //});
             //console.log(arg);
         });
     });

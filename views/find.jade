@@ -11,26 +11,44 @@ block content
     - divClass = "box box-info";
    - else
     - divClass = "box box-danger";
-   - if(count==6)
+   - if(count==5)
     - count = 0
      div.row
-   div.col-md-2
+   div.col-xs-2(style=" width: 20% !important;")
     div(class="#{divClass}")
      div.box-body.box-profile
-        img.img-responsive(style="height:222px; width:150px;" src= "#{pelicula.img}")
+        img.img-responsive.center-block(data-toggle="tooltip", data-placement="bottom", title="#{pelicula.calidad} || #{pelicula.tamano} ", style="height:222px; width:150px;" src= "#{pelicula.img}")
         br
         h6.text-center #{pelicula.titulo}
         h6.text-muted.text-center
             | #{pelicula.calidad}
             | ||
             | #{pelicula.tamano}
-        form(name="add-estimation", method="post", action="#{url}/torrent/findtorrent")
-             input(type="hidden", name="link" value="#{pelicula.enlace}")
-             div.action
-                 button(type="submit", value="Descargar").btn.btn-primary.center-block
-                     i.fa.fa-download
-                     |   Descargar
+
+        button(type="button",id="show_info",value="#{pelicula.enlace}").btn.btn-primary.center-block
+            i.fa.fa-download
+            |   Descargar
+        a(id="url",value="#{url}")
+
         - count++
+
+    #basicModal.modal.fade.modal-primary(tabindex='-1', role='dialog', aria-labelledby='basicModal', aria-hidden='true')
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                        h4#myModalLabel.modal-title Pelicula
+                    .modal-body
+                       a(id="descarga", href="#") Descargar Fichero Torrent
+                       br
+                       br
+                       button(type="button",id="transmission",value="#{pelicula.enlace}").btn.btn-success Añadir a Transsmision
+                       br
+                       br
+                       iframe(id="youtube")
+
+                    .modal-footer
+                        button.btn.btn-default(type='button', data-dismiss='modal') Close
  
     
   
