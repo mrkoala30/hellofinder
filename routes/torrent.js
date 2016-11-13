@@ -17,17 +17,28 @@ var torrent = "";
 
 router.post('/findtorrent',function(req,res){
     var link = req.body.link;
+    var trailer = "";
     request(link, function(error, response, body) {
         if(error) {
             console.log("Error: " + error);
         }
        // console.log("Status code: " + response.statusCode);
         var $ = cheerio.load(body);
+
         $('.external-url').filter(function(){
             var data = $(this);
             torrent = data[0].attribs.href;
         });
-        res.send({name:torrent,youtube:"http://www.youtube.com/embed/W-Q7RMpINVo"
+
+        $('#content-trailer').filter(function(){
+            var data = $(this);
+            if (typeof data[0].children[1].children[1].children[1].children[3] != "undefined") {
+                trailer = data[0].children[1].children[1].children[1].children[3].attribs.src;
+            }
+            //console.log(data[0].children[1].children[1].children[1].children[3].attribs.src);
+        });
+
+        res.send({name:torrent,youtube:trailer
         });
         //res.render('torrent',{url:config.url.dir,name:torrent
         //});

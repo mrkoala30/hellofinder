@@ -1,20 +1,7 @@
 extends layout
 
 block content
-  h1 Newpct
-  h3 BUSCAR
-  div(style="float:left;")
-    form(name="add-estimation", method="post", action="#{url}/buscar/buscar")
-        div.input
-            span.label Buscar
-            input(pattern='.{4,}', required='', title='minimo 4 caracteres ', type="text", name="title")
-            br
-            br
-        div.actions
-            input(type="submit", value="Buscar")
-  div(style="float:left;")
-  div(style="float:left;")
-   label |--------------|
+  h3 Descargar
   div(style="float:left;")
     form(name="add-estimation", method="post", action="#{url}/buscar/descargar")
         div.input

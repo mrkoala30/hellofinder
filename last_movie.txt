@@ -1,1 +1,1 @@
-http://localhost:3000/torrent/http://www.newpct.com/descargar-pelicula/bridget-jones-baby-2016/bluray-screeener/
+http://localhost:3000/torrent/http://www.newpct.com/descargar-pelicula/sully/dvd-screener/

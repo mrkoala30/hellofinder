@@ -14,7 +14,7 @@ block content
    - if(count==5)
     - count = 0
      div.row
-   div.col-xs-2(style=" width: 20% !important;")
+   div.col-md-2(id="pelicula",value="#{pelicula.enlace}")
     div(class="#{divClass}")
      div.box-body.box-profile
         img.img-responsive.center-block(data-toggle="tooltip", data-placement="bottom", title="#{pelicula.calidad} || #{pelicula.tamano} ", style="height:222px; width:150px;" src= "#{pelicula.img}")
@@ -32,22 +32,26 @@ block content
 
         - count++
 
-    #basicModal.modal.fade.modal-primary(tabindex='-1', role='dialog', aria-labelledby='basicModal', aria-hidden='true')
+    #basicModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='basicModal', aria-hidden='true')
             .modal-dialog
                 .modal-content
-                    .modal-header
-                        button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                        h4#myModalLabel.modal-title Pelicula
-                    .modal-body
-                       a(id="descarga", href="#") Descargar Fichero Torrent
-                       br
-                       br
-                       button(type="button",id="transmission",value="#{pelicula.enlace}").btn.btn-success Añadir a Transsmision
-                       br
-                       br
-                       iframe(id="youtube")
+                    .modal-header(style="background-color:#222d32;")
+                        button.close(type='button', data-dismiss='modal', aria-hidden='true' style="color: white;") &times;
+                        h4#myModalLabel.modal-title(style="color: white;") Descarga
+                    .modal-body(style="background-color:#222d32;")
+                        div(id="loading")
+                            object.center-block(data="#{url}/stylesheets/balls.svg" , type='image/svg+xml')
+                        div(id="show_dowload")
+                            a(id="descarga", href="#") Descargar Fichero Torrent
+                            br
+                            br
+                            button(type="button",id="transmission",value="#{pelicula.enlace}").btn.btn-success Añadir a Transsmision
+                            br
+                            br
+                            div.embed-responsive.embed-responsive-16by9
+                              iframe.embed-responsive-item(id="youtube")
 
-                    .modal-footer
+                    .modal-footer(style="background-color:#222d32;")
                         button.btn.btn-default(type='button', data-dismiss='modal') Close
  
     

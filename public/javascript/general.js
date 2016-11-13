@@ -2,11 +2,20 @@
 $(document).ready(function(){
 
     var url = $('#url').attr('value');
-    console.log(url);
+    $('#show_dowload').hide();
+
+    $('#basicModal').on('hidden.bs.modal', function () {
+        $('#show_dowload').hide();
+        $('#youtube').attr('src',"");
+    })
 
     //ver dialogo de descarga
     $('[id^=show_info]').click(function() {
         var link = $(this).attr('value');
+        $('#basicModal').modal('show');
+
+        $('#loading').show();
+
         $.ajax({
             url : url+'/torrent/findtorrent',
             type : 'POST',
@@ -14,33 +23,22 @@ $(document).ready(function(){
                 'link': link
             },
             dataType : 'json',
+            load : function(xhr, status) {
+                console.log("start");
+            },
             success : function(json) {
                 $('#youtube').attr('src',json.youtube);
                 $('#youtube').attr('type',"text/html");
                 $('#youtube').attr('title',"YouTube video player");
-                $('#youtube').attr('width',"570")
-                $('#youtube').attr('height',"370");
+                $('#youtube').attr('width',"auto")
+                $('#youtube').attr('height',"auto");
                 $('#youtube').attr('frameborder',"0");
                 $('#youtube').attr('allowfullscreen',"");
-
                 $('#youtube').addClass( "youtube-player" );
 
-
-                $('<iframe>', {
-                    class:"youtube-player",
-                    type:"text/html",
-                    src: json.youtube,
-                    title: "YouTube video player",
-                    id:  'youtube',
-                    width:640,
-                    height:390,
-                    frameborder: 0
-                }).appendTo('.accordion');
-
+                $('#loading').hide();
+                $('#show_dowload').show();
                 $('#descarga').attr('href',json.name);
-
-                $('#basicModal').modal('show');
-
             },
             error : function(xhr, status) {
                alert('Disculpe, existió un problema');
