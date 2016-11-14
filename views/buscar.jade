@@ -1,8 +1,44 @@
 extends layout
 
 block content
-  h3 Descargar
-  div(style="float:left;")
+  .row
+      .col-xs-12
+          .box
+              .box-header
+                  h3.box-title Resultados
+              // /.box-header
+              .box-body
+                  table#example1.table.table-striped.table-bordered
+                      thead
+                          tr
+                              th Titulo
+                              th Info
+                              th Descarga
+                      tbody
+                          -if(result!=null)
+                            - each info in result
+                                 tr
+                                    td #{info.nombre}
+                                    - if(info.temporada!=null)
+                                     td #{info.temporada}
+                                    - else
+                                     td Pelicula
+                                    td
+                                      button(type="button",id="show_info",value="#{info.enlace}").btn.btn-primary.center-block
+                                       i.fa.fa-download
+                                       |   Descargar
+                                      a(id="url",value="#{url}")
+
+
+                      tfoot
+                          tr
+                              th Titulo
+                              th Info
+                              th Descarga
+              // /.box-body
+          // /.box
+
+    div(style="float:left;")
     form(name="add-estimation", method="post", action="#{url}/buscar/descargar")
         div.input
             span.label Descargar
@@ -19,16 +55,25 @@ block content
   br
   h3 Resultado:
   br
-  -if(result!=null)
-   - each info in result
-     label #{info.nombre}
-     br
-     a(href="#{info.enlace}") Torrent
-     br
-     br
-  -if(descarga!=null)
-   br
-   - each info in descarga
-     a(href="#{info}") #{info}
-     br
-     br
+
+
+  #basicModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='basicModal', aria-hidden='true')
+    .modal-dialog
+        .modal-content
+            .modal-header(style="background-color:#222d32;")
+                button.close(type='button', data-dismiss='modal', aria-hidden='true' style="color: white;") &times;
+                h4#myModalLabel.modal-title(style="color: white;") Descarga
+        .modal-body(style="background-color:#222d32;")
+            div(id="loading")
+                object.center-block(data="#{url}/stylesheets/balls.svg" , type='image/svg+xml')
+            div(id="show_dowload")
+                a(id="descarga", href="#") Descargar Fichero Torrent
+                br
+                br
+                button(type="button",id="transmission",value="").btn.btn-success Añadir a Transsmision
+                br
+                br
+                div.embed-responsive.embed-responsive-16by9
+                    iframe.embed-responsive-item(id="youtube")
+        .modal-footer(style="background-color:#222d32;")
+            button.btn.btn-default(type='button', data-dismiss='modal') Close

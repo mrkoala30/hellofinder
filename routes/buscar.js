@@ -24,21 +24,32 @@ router.post('/buscar',function(req,res){
             }
         //console.log("Status code: " + response.statusCode);
         var $ = cheerio.load(body);
+
          $('#categoryTable').filter(function(){
              var data = $(this);
              var tabla = data.find( "tr" ).find("td").find("strong").find("a");
              if(tabla!=null){
                  for (var i = 0; i < tabla.length; ++i) {
+                  var titulo = tabla[i].attribs.title.slice(21,tabla[i].attribs.title.length);
+                  var temporada = null;
+                  if(titulo.search("Temporada")!=-1){
+                      var num = titulo.search("Temporada")
+                      temporada = titulo.substring(num,num+11);
+                  }
                   var result = {
-                    enlace: config.url.dir +"/"+ replaceAll(tabla[i].attribs.href,"/","*"),
-                    nombre: tabla[i].attribs.title
+                    enlace: tabla[i].attribs.href,
+                    nombre: titulo,
+                    temporada: temporada
                   };
                   resultado.push(result);
                   //console.log(resultado);
               }
              }
          });
-           res.render('buscar',{url:config.url.dir,result:resultado
+           res.render('buscar',{url:config.url.dir,result:resultado,
+                                scripts:[config.url.dir+'/plugins/datatables/jquery.dataTables.min.js',
+                                         config.url.dir+'/javascript/table_data.js'],
+                                styles:[config.url.dir+'/plugins/datatables/dataTables.bootstrap.css']
                     });
         });
 });
@@ -63,7 +74,7 @@ router.post('/descargar', function(req, res) {
                  for (var i = 0; i < tabla.length; ++i) {
                   var result = {
                     enlace: tabla[i].attribs.href,
-                    nombre: tabla[i].attribs.title
+                    nombre: tabla[i].attribs.title.slice(21,tabla[i].attribs.title.length)
                   };
                   resultado.push(result);
                  // console.log(resultado);

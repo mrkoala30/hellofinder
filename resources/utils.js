@@ -4,7 +4,7 @@ var cheerio = require('cheerio');
 var config = require('../resources/config.js');
 
 
-module.exports.getPage = function (link,page,callback) {
+module.exports.getPage = function (page,callback) {
     request(page, function(error, response, body) {
         if(error) {
             console.log("Error: " + error);
@@ -34,17 +34,11 @@ module.exports.getPage = function (link,page,callback) {
                 if(name.length>23){
                     name = name.slice(0,19);
                 }
-                var links = "";
-                if(link){
-                    links = li[i].children[1].attribs.href;
-                    //links = config.url.dir + "/torrent/"+replaceAll(li[i].children[1].attribs.href,"/","*");
-                }else{
-                    links = config.url.dir + "/torrent/"+li[i].children[1].attribs.href;
-                }
+
                 var pelicula = {
                     titulo: name,
                     img : li[i].children[1].children[1].children[1].attribs.src,
-                    enlace : links,
+                    enlace : li[i].children[1].attribs.href,
                     calidad: calidad,
                     tamano: tamano,
                     torrent: " "

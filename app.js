@@ -14,6 +14,7 @@ var find = require('./routes/find');
 var torrent = require('./routes/torrent');
 var buscar = require('./routes/buscar');
 var series = require('./routes/series');
+var series_vo = require('./routes/series_vo');
 
 var app = express();
 
@@ -39,6 +40,7 @@ app.use('/find', find);
 app.use('/torrent', torrent);
 app.use('/buscar', buscar);
 app.use('/series', series);
+app.use('/series_vo', series_vo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -6,7 +6,7 @@ var config = require('../resources/config.js');
 //get Peliculas Estrenos
 router.get('/', function(req, res) {
     var page = "http://www.newpct.com/peliculas-castellano/estrenos-de-cine/";
-    utils.getPage(true,page,function(err,response){
+    utils.getPage(page,function(err,response){
         if(err){
           console.log(err);
         }else{

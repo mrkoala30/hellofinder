@@ -7,12 +7,15 @@ $(document).ready(function(){
     $('#basicModal').on('hidden.bs.modal', function () {
         $('#show_dowload').hide();
         $('#youtube').attr('src',"");
+        $('#transmission').attr('value',"");
     })
 
     //ver dialogo de descarga
     $('[id^=show_info]').click(function() {
         var link = $(this).attr('value');
         $('#basicModal').modal('show');
+        //agregar para transmision
+        $('#transmission').attr('value',link);
 
         $('#loading').show();
 
