@@ -41,7 +41,7 @@ $(document).ready(function(){
 
                 $('#loading').hide();
                 $('#show_dowload').show();
-                $('#descarga').attr('href',json.name);
+                $('#descarga').attr('onclick','location.href="'+json.name+'"');
             },
             error : function(xhr, status) {
                alert('Disculpe, existió un problema');
@@ -70,6 +70,7 @@ $(document).ready(function(){
             }
         });
     });
+
 
 
 

@@ -16,8 +16,8 @@ router.get('/', function(req, res) {
     });
 });
 
-router.get('/', function(req, res) {
-    var page = "http://www.newpct.com/peliculas-castellano/estrenos-de-cine/";
+router.get('/cine-alta-definicion-hd', function(req, res) {
+    var page = "http://www.newpct.com/cine-alta-definicion-hd/";
     utils.getPage(page,function(err,response){
         if(err){
             console.log(err);
@@ -27,4 +27,42 @@ router.get('/', function(req, res) {
         }
     });
 });
+
+router.get('/peliculas-rip', function(req, res) {
+    var page = "http://www.newpct.com/peliculas-castellano/peliculas-rip/";
+    utils.getPage(page,function(err,response){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('find',{url:config.url.dir,pelis: response
+            });
+        }
+    });
+});
+
+router.get('/peliculas-en-3d-hd', function(req, res) {
+    var page = "http://www.newpct.com/peliculas-en-3d-hd/";
+    utils.getPage(page,function(err,response){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('find',{url:config.url.dir,pelis: response
+            });
+        }
+    });
+});
+
+router.get('/peliculas-vo', function(req, res) {
+    var page = "http://www.newpct.com/peliculas-vo/";
+    utils.getPage(page,function(err,response){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('find',{url:config.url.dir,pelis: response
+            });
+        }
+    });
+});
+
+
 module.exports = router;

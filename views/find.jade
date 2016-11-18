@@ -42,8 +42,13 @@ block content
                     .modal-body(style="background-color:#222d32;")
                         div(id="loading")
                             object.center-block(data="#{url}/stylesheets/balls.svg" , type='image/svg+xml')
-                        div(id="show_dowload")
-                            a(id="descarga", href="#") Descargar Fichero Torrent
+                        div.center-block(id="show_dowload")
+                            div.center-block.row
+                                div.col-md-5
+
+                                    input.btn.btn-success.center-block(type='button', id="descarga", onclick="location.href='http://google.com';", value='Descargar Torrent')
+                                div.col-md-5
+                                    button(type="button",id="transmission",value="").btn.btn-success.center-block Añadir a Transsmision
                             br
                             br
                             button(type="button",id="transmission",value="").btn.btn-success Añadir a Transsmision

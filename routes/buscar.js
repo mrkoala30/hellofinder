@@ -62,8 +62,18 @@ router.post('/buscar',function(req,res){
                       }else{
                           calidad = titulo.substring(num,num+4);
                       }
-
-
+                  }
+                  if(titulo.search("DVD")!=-1){
+                      var num = titulo.search("DVD")
+                      calidad = titulo.substring(num,num+6);
+                  }
+                  if(titulo.search("VO")!=-1){
+                      var num = titulo.search("VO")
+                      calidad = titulo.substring(num,num+3);
+                  }
+                  if(titulo.search("BluRay")!=-1){
+                      var num = titulo.search("BluRay")
+                         calidad = titulo.substring(num,num+15);
                   }
 
                   var result = {
