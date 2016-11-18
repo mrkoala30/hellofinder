@@ -32,13 +32,45 @@ router.post('/buscar',function(req,res){
                  for (var i = 0; i < tabla.length; ++i) {
                   var titulo = tabla[i].attribs.title.slice(21,tabla[i].attribs.title.length);
                   var temporada = null;
+                  var calidad = null;
+                  var name = null;
+                  var capitulo = null;
+                  if(titulo.search("-")!=-1) {
+                      name = titulo.substring(0,titulo.indexOf("-"));
+                  }else{
+                      name = titulo.substring(0,30);
+                  }
+
+                  if(titulo.search("Cap.")!=-1) {
+                     var num = titulo.search("Cap.")
+                     capitulo = titulo.substring(num,num+7);
+                  }
+
+
                   if(titulo.search("Temporada")!=-1){
                       var num = titulo.search("Temporada")
                       temporada = titulo.substring(num,num+11);
                   }
+                  if(titulo.search("HDTV")!=-1){
+                      var num = titulo.search("HDTV")
+                      if(titulo.search("1080p")!=-1 || titulo.search("720p")!=-1){
+                          if(titulo.search("720p")!=-1){
+                              calidad = titulo.substring(num,num+9);
+                          }else{
+                              calidad = titulo.substring(num,num+10);
+                          }
+                      }else{
+                          calidad = titulo.substring(num,num+4);
+                      }
+
+
+                  }
+
                   var result = {
                     enlace: tabla[i].attribs.href,
-                    nombre: titulo,
+                    nombre: name,
+                    capitulo: capitulo,
+                    calidad: calidad,
                     temporada: temporada
                   };
                   resultado.push(result);
@@ -48,8 +80,10 @@ router.post('/buscar',function(req,res){
          });
            res.render('buscar',{url:config.url.dir,result:resultado,
                                 scripts:[config.url.dir+'/plugins/datatables/jquery.dataTables.min.js',
+                                         config.url.dir+'/plugins/datatables/jquery-dateFormat.min.js',
                                          config.url.dir+'/javascript/table_data.js'],
-                                styles:[config.url.dir+'/plugins/datatables/dataTables.bootstrap.css']
+                                styles:[config.url.dir+'/plugins/datatables/dataTables.bootstrap.css',
+                                    config.url.dir+'/plugins/datatables/jquery.dataTables_themeroller.css']
                     });
         });
 });

@@ -8,7 +8,7 @@ $(document).ready(function(){
         $('#show_dowload').hide();
         $('#youtube').attr('src',"");
         $('#transmission').attr('value',"");
-    })
+    });
 
     //ver dialogo de descarga
     $('[id^=show_info]').click(function() {

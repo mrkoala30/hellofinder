@@ -12,6 +12,8 @@ block content
                       thead
                           tr
                               th Titulo
+                              th Capitulo
+                              th Calidad
                               th Info
                               th Descarga
                       tbody
@@ -19,10 +21,19 @@ block content
                             - each info in result
                                  tr
                                     td #{info.nombre}
-                                    - if(info.temporada!=null)
-                                     td #{info.temporada}
+                                    - if(info.capitulo!=null)
+                                        td #{info.capitulo}
                                     - else
-                                     td Pelicula
+                                        td
+                                    - if(info.calidad!=null)
+                                        td #{info.calidad}
+                                    - else
+                                        td No Espc.
+                                    - if(info.temporada!=null)
+                                        td #{info.temporada}
+                                    - else
+                                        td Pelicula
+
                                     td
                                       button(type="button",id="show_info",value="#{info.enlace}").btn.btn-primary.center-block
                                        i.fa.fa-download
@@ -33,13 +44,15 @@ block content
                       tfoot
                           tr
                               th Titulo
+                              th Capitulo
+                              th Calidad
                               th Info
                               th Descarga
               // /.box-body
           // /.box
 
-    div(style="float:left;")
-    form(name="add-estimation", method="post", action="#{url}/buscar/descargar")
+    //div(style="float:left;")
+    //form(name="add-estimation", method="post", action="#{url}/buscar/descargar")
         div.input
             span.label Descargar
             input(pattern='.{4,}', required='', title='minimo 4 caracteres ', type="text", name="title")
@@ -48,13 +61,8 @@ block content
             p Filtros de descarga: Numero de temporada + calidad AC3
         div.actions
             input(type="submit", value="Descargar")
-  br
-  br
-  br
-  br
-  br
-  h3 Resultado:
-  br
+    //h3 Resultado:
+
 
 
   #basicModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='basicModal', aria-hidden='true')
