@@ -4,6 +4,6 @@ var config = {};
 
 config.url.dir = 'http://adchome.duckdns.org:3000';
 config.transmision.user = 'osmc';
-config.transmision.pass = 'pitoniso';
+config.transmision.pass = '240711';
 
 module.exports = config;
