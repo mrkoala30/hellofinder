@@ -35,10 +35,17 @@ router.post('/buscar',function(req,res){
                   var calidad = null;
                   var name = null;
                   var capitulo = null;
+                  var idioma = null;
+
                   if(titulo.search("-")!=-1) {
                       name = titulo.substring(0,titulo.indexOf("-"));
                   }else{
                       name = titulo.substring(0,30);
+                  }
+                  if(titulo.search("Espa")!=-1 || titulo.search("Spanish")!=-1){
+                      idioma = "Español"
+                  }else{
+                      idioma = "English";
                   }
 
                   if(titulo.search("Cap.")!=-1) {
@@ -81,6 +88,7 @@ router.post('/buscar',function(req,res){
                     nombre: name,
                     capitulo: capitulo,
                     calidad: calidad,
+                    idioma: idioma,
                     temporada: temporada
                   };
                   resultado.push(result);

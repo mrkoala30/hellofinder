@@ -20,7 +20,7 @@ block content
                           -if(result!=null)
                             - each info in result
                                  tr
-                                    td #{info.nombre}
+                                    td #{info.nombre} <--> #{info.idioma}
                                     - if(info.capitulo!=null)
                                         td #{info.capitulo}
                                     - else
