@@ -10,8 +10,8 @@ var router = express.Router();
 transmission = new transmission({
     port: 9091,         // DEFAULT : 9091
     host: "adchome.duckdns.org",         // DEAFULT : 127.0.0.1
-    username: 'transmission',   // DEFAULT : BLANK
-    password: 'transmission'    // DEFAULT : BLANK
+    username: config.transmision.user,   // DEFAULT : BLANK
+    password: config.transmision.pass    // DEFAULT : BLANK
 });
 var torrent = "";
 
