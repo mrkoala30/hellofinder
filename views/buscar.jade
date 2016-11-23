@@ -62,26 +62,3 @@ block content
         div.actions
             input(type="submit", value="Descargar")
     //h3 Resultado:
-
-
-
-  #basicModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='basicModal', aria-hidden='true')
-    .modal-dialog
-        .modal-content
-            .modal-header(style="background-color:#222d32;")
-                button.close(type='button', data-dismiss='modal', aria-hidden='true' style="color: white;") &times;
-                h4#myModalLabel.modal-title(style="color: white;") Descarga
-        .modal-body(style="background-color:#222d32;")
-            div(id="loading")
-                object.center-block(data="#{url}/stylesheets/balls.svg" , type='image/svg+xml')
-            div(id="show_dowload")
-                a(id="descarga", href="#") Descargar Fichero Torrent
-                br
-                br
-                button(type="button",id="transmission",value="").btn.btn-success Añadir a Transsmision
-                br
-                br
-                div.embed-responsive.embed-responsive-16by9
-                    iframe.embed-responsive-item(id="youtube")
-        .modal-footer(style="background-color:#222d32;")
-            button.btn.btn-default(type='button', data-dismiss='modal') Close
