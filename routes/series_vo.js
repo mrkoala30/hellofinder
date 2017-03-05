@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
         if(err){
             console.log(err);
         }else{
-            res.render('find',{url:config.url.dir,pelis: response
+            res.render('find',{page_name:"Series VO",url:config.url.dir,pelis: response
             });
         }
     });

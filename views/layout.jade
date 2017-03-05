@@ -77,14 +77,18 @@ html
               span.input-group-btn
                 button#search-btn.btn.btn-flat(type='submit', name='buscar')
                   i.fa.fa-search
-          // /.search form
-          // sidebar menu: : style can be found in sidebar.less
+
+            select.form-control(name="select_finder" style="background-color:#374850; border:1px solid transparent; color:white; ")
+                  option(name="choice1" value="newpct") newpct
+                  option(name="choice3" value="thepiratebay") thepiratebay
+
+
           ul.sidebar-menu
             li.header Menu
             li.active.treeview
               a(href='#')
                 i.fa.fa-video-camera
-                span Peliculas
+                span NEWPCT
                 span.pull-right-container
                   i.fa.fa-angle-left.pull-right
               ul.treeview-menu
@@ -95,54 +99,41 @@ html
                   li
                      a(href='#{url}/find/cine-alta-definicion-hd')
                        i.fa.fa-circle-o
-                       |  Alta Definicion
+                       |  Peliculas Alta Definicion
                   li
                      a(href='#{url}/find/peliculas-en-3d-hd')
                        i.fa.fa-circle-o
-                       |  3D
+                       |  Peliculas 3D
                   li
                      a(href='#{url}/find/peliculas-vo')
                        i.fa.fa-circle-o
-                       |  VO
+                       |  Peliculas VO
                   li
                      a(href='#{url}/find/peliculas-rip')
                        i.fa.fa-circle-o
-                       |  BLURAYRIP
-            li.active.treeview
+                       |  Bluray Rip
+
+                  li
+                    a(href='#{url}/series')
+                      i.fa.fa-circle-o
+                      |  Series 720p
+                  li
+                    a(href='#{url}/series_vo')
+                      i.fa.fa-circle-o
+                      |  Series VO
+            //li.active.treeview
               a(href='#')
                 i.fa.fa-video-camera
                 span Series
                 span.pull-right-container
                   i.fa.fa-angle-left.pull-right
               ul.treeview-menu
-                li
-                  a(href='#{url}/series')
-                    i.fa.fa-circle-o
-                    |  Series
-                li
-                  a(href='#{url}/series_vo')
-                    i.fa.fa-circle-o
-                    |  Series V.O.S
-            li.header LABELS
-            li
-              a(href='#')
-                i.fa.fa-circle-o.text-red
-                span Important
-            li
-              a(href='#')
-                i.fa.fa-circle-o.text-yellow
-                span Warning
-            li
-              a(href='#')
-                i.fa.fa-circle-o.text-aqua
-                span Information
-        // /.sidebar
-      // Content Wrapper. Contains page content
+
+
       .content-wrapper
         // Content Header (Page header)
         section.content-header
-          h1
-            | Dashboard
+          h1 #{page_name}
             small Control panel
           ol.breadcrumb
             li
@@ -154,15 +145,15 @@ html
         section.content
          div.row
           block content
-        // /.content
+        //todo.el.contenido.de.las.paginas
       // /.content-wrapper
       footer.main-footer
         .pull-right.hidden-xs
           b Version
           |  2.3.8
         strong
-          | Copyright © 2014-2016
-          a(href='http://almsaeedstudio.com') Almsaeed Studio
+          | Copyright © 2016-2017
+          a(href='https://hellofinder.herokuapp.com/') HelloFinder
           | .
         |  All rights
         |     reserved.

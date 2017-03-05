@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
         if(err){
           console.log(err);
         }else{
-            res.render('find',{url:config.url.dir,pelis: response
+            res.render('find',{page_name:"Estrenos",url:config.url.dir,pelis: response
             });
         }
     });
@@ -22,7 +22,7 @@ router.get('/cine-alta-definicion-hd', function(req, res) {
         if(err){
             console.log(err);
         }else{
-            res.render('find',{url:config.url.dir,pelis: response
+            res.render('find',{page_name:"Alta Definición",url:config.url.dir,pelis: response
             });
         }
     });
@@ -34,7 +34,7 @@ router.get('/peliculas-rip', function(req, res) {
         if(err){
             console.log(err);
         }else{
-            res.render('find',{url:config.url.dir,pelis: response
+            res.render('find',{page_name:"BluRay Rip",url:config.url.dir,pelis: response
             });
         }
     });
@@ -46,7 +46,7 @@ router.get('/peliculas-en-3d-hd', function(req, res) {
         if(err){
             console.log(err);
         }else{
-            res.render('find',{url:config.url.dir,pelis: response
+            res.render('find',{page_name:"3D",url:config.url.dir,pelis: response
             });
         }
     });
@@ -58,7 +58,7 @@ router.get('/peliculas-vo', function(req, res) {
         if(err){
             console.log(err);
         }else{
-            res.render('find',{url:config.url.dir,pelis: response
+            res.render('find',{page_name:"Peliculas VO",url:config.url.dir,pelis: response
             });
         }
     });

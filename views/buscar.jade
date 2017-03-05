@@ -8,6 +8,7 @@ block content
                   h3.box-title Resultados
               // /.box-header
               .box-body
+                 -if(type=="newpct")
                   table#example1.table.table-striped.table-bordered
                       thead
                           tr
@@ -38,7 +39,7 @@ block content
                                       button(type="button",id="show_info",value="#{info.enlace}").btn.btn-primary.center-block
                                        i.fa.fa-download
                                        |   Descargar
-                                      a(id="url",value="#{url}")
+                                      a(id="url",value="#{info.enlace}")
 
 
                       tfoot
@@ -48,20 +49,29 @@ block content
                               th Calidad
                               th Info
                               th Descarga
-              // /.box-body
-          // /.box
+                 -if(type=="thepiratebay")
+                      table#example2.table.table-striped.table-bordered
+                          thead
+                              tr
+                                  th Titulo
+                                  th Descarga
+                          tbody
+                            -if(result!=null)
+                             - each info in result
+                                tr
+                                  - if(info.nombre!=null)
+                                    td #{info.nombre}
+                                  td
+                                   button(type="button",id="show_info",value="#{info.enlace}").btn.btn-primary.center-block
+                                    i.fa.fa-download
+                                    |   Descargar
+                                    a(id="url", value="#{url}")
+                                    a(id="type", value="#{type}")
 
-    //div(style="float:left;")
-    //form(name="add-estimation", method="post", action="#{url}/buscar/descargar")
-        div.input
-            span.label Descargar
-            input(pattern='.{4,}', required='', title='minimo 4 caracteres ', type="text", name="title")
-            span.label Temporada #
-            input(pattern='.{1,}', required='', title='minimo 1 caracteres ', type="text", name="temporada")
-            p Filtros de descarga: Numero de temporada + calidad AC3
-        div.actions
-            input(type="submit", value="Descargar")
-    //h3 Resultado:
+
+
+
+
   #basicModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='basicModal', aria-hidden='true')
     .modal-dialog
         .modal-content

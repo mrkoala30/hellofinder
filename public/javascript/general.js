@@ -2,6 +2,8 @@
 $(document).ready(function(){
 
     var url = $('#url').attr('value');
+    var type = $('#type').attr('value');
+
     $('#show_dowload').hide();
 
     $('#basicModal').on('hidden.bs.modal', function () {
@@ -9,6 +11,7 @@ $(document).ready(function(){
         $('#youtube').attr('src',"");
         $('#transmission').attr('value',"");
     });
+
 
     //ver dialogo de descarga
     $('[id^=show_info]').click(function() {
@@ -19,41 +22,46 @@ $(document).ready(function(){
 
         $('#loading').show();
 
-        $.ajax({
-            url : url+'/torrent/findtorrent',
-            type : 'POST',
-            data: {
-                'link': link
-            },
-            dataType : 'json',
-            load : function(xhr, status) {
-                console.log("start");
-            },
-            success : function(json) {
-                $('#youtube').attr('src',json.youtube);
-                $('#youtube').attr('type',"text/html");
-                $('#youtube').attr('title',"YouTube video player");
-                $('#youtube').attr('width',"auto")
-                $('#youtube').attr('height',"auto");
-                $('#youtube').attr('frameborder',"0");
-                $('#youtube').attr('allowfullscreen',"");
-                $('#youtube').addClass( "youtube-player" );
+            $.ajax({
+                url : url+'/torrent/findtorrent',
+                type : 'POST',
+                data: {
+                    'link': link,
+                    'type': type
+                },
+                dataType : 'json',
+                load : function(xhr, status) {
+                    console.log("start");
+                },
+                success : function(json) {
+                    if(type=="newpct"){
+                        $('#youtube').attr('src',json.youtube);
+                        $('#youtube').attr('type',"text/html");
+                        $('#youtube').attr('title',"YouTube video player");
+                        $('#youtube').attr('width',"auto")
+                        $('#youtube').attr('height',"auto");
+                        $('#youtube').attr('frameborder',"0");
+                        $('#youtube').attr('allowfullscreen',"");
+                        $('#youtube').addClass( "youtube-player" );
+                    }
+                    $('#loading').hide();
+                    $('#show_dowload').show();
+                    $('#descarga').attr('onclick','location.href="'+json.name+'"');
+                },
+                error : function(xhr, status) {
+                    alert('Disculpe, existió un problema');
+                },
+                complete : function(xhr, status) {
+                    console.log('Petición realizada');
+                }
+            });
 
-                $('#loading').hide();
-                $('#show_dowload').show();
-                $('#descarga').attr('onclick','location.href="'+json.name+'"');
-            },
-            error : function(xhr, status) {
-               alert('Disculpe, existió un problema');
-            },
-            complete : function(xhr, status) {
-                console.log('Petición realizada');
-            }
-        });
+
     });
 
     //agregar a transmision
     $('#transmission').click(function() {
+        console.log("enviando a transmission");
         $.ajax({
             url : url+'/torrent/descargar',
             type : 'POST',
