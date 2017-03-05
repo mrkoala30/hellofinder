@@ -18,7 +18,6 @@ var types = "";
 
 router.post('/findtorrent',function(req,res){
     var link = req.body.link;
-    var type = req.body.type;
     types = req.body.type;
     var trailer = "";
     request(link, function(error, response, body) {
@@ -27,7 +26,7 @@ router.post('/findtorrent',function(req,res){
         }
         var $ = cheerio.load(body);
 
-        if(type=="newpct"){
+        if(typeof types=="undefined" || types=="newpct"){
             $('.external-url').filter(function(){
                 var data = $(this);
                 torrent = data[0].attribs.href;
@@ -42,7 +41,7 @@ router.post('/findtorrent',function(req,res){
 
             res.send({name:torrent,youtube:trailer
             });
-        }else if(type=="thepiratebay"){
+        }else if(types=="thepiratebay"){
 
             $('.download').filter(function(){
                 var data = $(this);
@@ -58,7 +57,7 @@ router.post('/findtorrent',function(req,res){
 
 router.post('/descargar',function(req,res){
 
-    if(types=="newpct"){
+    if(typeof types=="undefined" || types=="newpct"){
         var file = fs.createWriteStream("./public/torrent.torrent");
         var torrentfinal =torrent.slice(torrent.search("link=")+5,torrent.length);
         var ulr = "http://www.newpct.com/" + torrentfinal;
