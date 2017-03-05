@@ -9,7 +9,6 @@ module.exports.getPage = function (page,callback) {
         if(error) {
             console.log("Error: " + error);
         }
-        //console.log("Status code: " + response.statusCode);
         var $ = cheerio.load(body);
 
         $('#content-category').filter(function(){
@@ -37,9 +36,6 @@ module.exports.getPage = function (page,callback) {
                     }
                 }
                 var name = li[i].children[1].children[1].children[3].children[1].children[0].data;
-               // if(name.length>23){
-                 //   name = name.slice(0,19);
-                //}
                 if(capitulo == ""){
                     pelicula = {
                         titulo: name,
@@ -71,6 +67,146 @@ module.exports.getPage = function (page,callback) {
 
     });
 };
+
+
+module.exports.getNewpct = function (link,callback) {
+    var resultado = [];
+
+    request(link, function(error, response, body) {
+        if(error) {
+            console.log("Error: " + error);
+        }
+        var $ = cheerio.load(body);
+
+        $('#categoryTable').filter(function(){
+            var data = $(this);
+            var tabla = data.find( "tr" ).find("td").find("strong").find("a");
+            if(tabla!=null){
+                for (var i = 0; i < tabla.length; ++i) {
+                    var titulo = tabla[i].attribs.title.slice(21,tabla[i].attribs.title.length);
+                    var temporada = null;
+                    var calidad = null;
+                    var name = null;
+                    var capitulo = null;
+                    var idioma = null;
+
+                    if(titulo.search("-")!=-1) {
+                        name = titulo.substring(0,titulo.indexOf("-"));
+                    }else{
+                        name = titulo.substring(0,30);
+                    }
+                    if(titulo.search("Espa")!=-1 || titulo.search("Spanish")!=-1){
+                        idioma = "Español"
+                    }else{
+                        idioma = "English";
+                    }
+
+                    if(titulo.search("Cap.")!=-1) {
+                        var num = titulo.search("Cap.")
+                        capitulo = titulo.substring(num,num+7);
+                    }
+
+
+                    if(titulo.search("Temporada")!=-1){
+                        var num = titulo.search("Temporada")
+                        temporada = titulo.substring(num,num+11);
+                    }
+                    if(titulo.search("HDTV")!=-1){
+                        var num = titulo.search("HDTV")
+                        if(titulo.search("1080p")!=-1 || titulo.search("720p")!=-1){
+                            if(titulo.search("720p")!=-1){
+                                calidad = titulo.substring(num,num+9);
+                            }else{
+                                calidad = titulo.substring(num,num+10);
+                            }
+                        }else{
+                            calidad = titulo.substring(num,num+4);
+                        }
+                    }
+                    if(titulo.search("DVD")!=-1){
+                        var num = titulo.search("DVD")
+                        calidad = titulo.substring(num,num+6);
+                    }
+                    if(titulo.search("VO")!=-1){
+                        var num = titulo.search("VO")
+                        calidad = titulo.substring(num,num+3);
+                    }
+                    if(titulo.search("BluRay")!=-1){
+                        var num = titulo.search("BluRay")
+                        calidad = titulo.substring(num,num+15);
+                    }
+
+                    var result = {
+                        enlace: tabla[i].attribs.href,
+                        nombre: name,
+                        capitulo: capitulo,
+                        calidad: calidad,
+                        idioma: idioma,
+                        temporada: temporada
+                    };
+                    resultado.push(result);
+                }
+            }
+        });
+
+        callback(error,resultado);
+    });
+
+};
+
+
+module.exports.getThePirateBay = function (proxy,link,callback) {
+    var resultado = [];
+    request(link, function(error, response, body) {
+        if(error){
+            console.error(error);
+        }
+        var $ = cheerio.load(body);
+        $('#searchResult').filter(function(){
+            var data = $(this);
+            var tabla = data.find($('.detName'));
+            if(tabla!=null){
+                var title = "";
+                var enlace = "";
+                for (var i = 0; i < tabla.length; ++i) {
+                    if (typeof tabla[i].children[1] != "undefined") {
+                        enlace = title = tabla[i].children[1].attribs.href;
+                        title = tabla[i].children[1].children[0].data;
+                    }
+                    var result = {
+                        nombre: title,
+                        enlace: proxy+enlace
+                    };
+                    resultado.push(result);
+                }
+            }
+        });
+        callback(error,resultado);
+    });
+
+};
+
+module.exports.getMejorTorrent = function (link,callback) {
+
+    var resultado = [];
+    request(link, function(error, response, body) {
+        if(error){
+            console.error(error);
+        }
+
+        var $ = cheerio.load(body);
+
+        $('#categoryTable').filter(function(){
+
+
+        });
+
+        callback(error,resultado);
+
+    });
+
+};
+
 
 var replaceAll = function( text, busca, reemplaza ){
     while (text.toString().indexOf(busca) != -1)
