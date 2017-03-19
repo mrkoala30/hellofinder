@@ -34,16 +34,16 @@ $(document).ready(function(){
                     console.log("start");
                 },
                 success : function(json) {
-                    if(type=="newpct"){
-                        $('#youtube').attr('src',json.youtube);
-                        $('#youtube').attr('type',"text/html");
-                        $('#youtube').attr('title',"YouTube video player");
-                        $('#youtube').attr('width',"auto")
-                        $('#youtube').attr('height',"auto");
-                        $('#youtube').attr('frameborder',"0");
-                        $('#youtube').attr('allowfullscreen',"");
-                        $('#youtube').addClass( "youtube-player" );
-                    }
+
+                    $('#youtube').attr('src',json.youtube);
+                    $('#youtube').attr('type',"text/html");
+                    $('#youtube').attr('title',"YouTube video player");
+                    $('#youtube').attr('width',"auto")
+                    $('#youtube').attr('height',"auto");
+                    $('#youtube').attr('frameborder',"0");
+                    $('#youtube').attr('allowfullscreen',"");
+                    $('#youtube').addClass( "youtube-player" );
+
                     $('#loading').hide();
                     $('#show_dowload').show();
                     $('#descarga').attr('onclick','location.href="'+json.name+'"');
