@@ -207,6 +207,136 @@ module.exports.getMejorTorrent = function (link,callback) {
 
 };
 
+module.exports.getPrincipalNew = function (page,callback) {
+    request(page, function(error, response, body) {
+        if(error) {
+            console.log("Error: " + error);
+        }
+        var categories = [];
+        var $ = cheerio.load(body);
+
+        $('#categoryEstrenosCine').filter(function(){
+            var peliculas = [];
+            var data = $(this);
+            var dat =  data.find("ul").find("a");
+            for(var i = 0; i < dat.length; ++i){
+                var item = dat[i];
+                var img = item.children[1].children[1].attribs.src;
+                var title = item.children[1].children[3].children[1].children[0].data;
+                var bean = {
+                    type: "Estrenos",
+                    title: title,
+                    url: item.attribs.href,
+                    img: img
+                }
+                peliculas.push(bean);
+            }
+            categories.push(peliculas);
+        });
+
+        $('#categoryPeliculasCastellano').filter(function(){
+            var peliculas = [];
+            var data = $(this);
+            var dat =  data.find("ul").find("a");
+            for(var i = 0; i < dat.length; ++i) {
+                var item = dat[i];
+                var img = item.children[1].children[1].attribs.src;
+                var title = item.children[1].children[3].children[1].children[0].data;
+                var bean = {
+                    type: "Peliculas Castellano",
+                    title: title,
+                    url: item.attribs.href,
+                    img: img
+                }
+                peliculas.push(bean);
+            }
+            categories.push(peliculas);
+        });
+
+
+
+        $('#categorySeriesHD').filter(function(){
+            var peliculas = [];
+            var data = $(this);
+            var dat =  data.find("ul").find("a");
+            for(var i = 0; i < dat.length; ++i){
+                var item = dat[i];
+                var img = item.children[1].children[1].attribs.src;
+                var title = item.children[1].children[3].children[1].children[0].data;
+                var bean = {
+                    type: "Series HD",
+                    title: title,
+                    url: item.attribs.href,
+                    img: img
+                }
+                peliculas.push(bean);
+            }
+            categories.push(peliculas);
+        });
+
+        $('#categorySeriesVO').filter(function(){
+            var peliculas = [];
+            var data = $(this);
+            var dat =  data.find("ul").find("a");
+            for(var i = 0; i < dat.length; ++i){
+                var item = dat[i];
+                var img = item.children[1].children[1].attribs.src;
+                var title = item.children[1].children[3].children[1].children[0].data;
+                var bean = {
+                    type: "Series VO",
+                    title: title,
+                    url: item.attribs.href,
+                    img: img
+                }
+                peliculas.push(bean);
+            }
+            categories.push(peliculas);
+        });
+
+        $('#categoryPeliculasHD').filter(function(){
+            var peliculas = [];
+            var data = $(this);
+            var dat =  data.find("ul").find("a");
+            for(var i = 0; i < dat.length; ++i){
+                var item = dat[i];
+                var img = item.children[1].children[1].attribs.src;
+                var title = item.children[1].children[3].children[1].children[0].data;
+                var bean = {
+                    type: "Peliculas HD",
+                    title: title,
+                    url: item.attribs.href,
+                    img: img
+                }
+                peliculas.push(bean);
+            }
+            categories.push(peliculas);
+        });
+
+        $('#categorySeriesCastellano').filter(function(){
+            var peliculas = [];
+            var data = $(this);
+            var dat =  data.find("ul").find("a");
+            for(var i = 0; i < dat.length; ++i){
+                var item = dat[i];
+                var img = item.children[1].children[1].attribs.src;
+                var title = item.children[1].children[3].children[1].children[0].data;
+                var bean = {
+                    type: "Series Castellano",
+                    title: title,
+                    url: item.attribs.href,
+                    img: img
+                }
+                peliculas.push(bean);
+            }
+            categories.push(peliculas);
+        });
+
+        callback(null,categories);
+    });
+};
+
+
+
 
 var replaceAll = function( text, busca, reemplaza ){
     while (text.toString().indexOf(busca) != -1)

@@ -4,36 +4,32 @@ block content
   - var divClass = null;
   - var count = 0;
   h1= title
-  - each pelicula in pelis
-   - if(pelicula.calidad.search("HD")!=-1 || pelicula.calidad.search("BluRay")!=-1)
-    - divClass = "box box-success";
-   - else if(pelicula.calidad.search("DVD")!=-1)
-    - divClass = "box box-info";
-   - else
-    - divClass = "box box-danger";
-   - if(count==5)
-    - count = 0
-     div.row
-   div.col-md-2(id="pelicula",value="#{pelicula.enlace}")
-    div(class="#{divClass}")
-     div.box-body.box-profile
-        img.img-responsive.center-block(data-toggle="tooltip", data-placement="bottom", title="#{pelicula.calidad} || #{pelicula.tamano} ", style="height:222px; width:150px;" src= "#{pelicula.img}")
-        br
-        h6.text-center #{pelicula.titulo}
-        h6.text-center #{pelicula.capitulo}
-        h6.text-muted.text-center
-            | #{pelicula.calidad}
-            | ||
-            | #{pelicula.tamano}
+  - each items in pelis
+    div.box.box-default.color-palette-box
+     div.box-header.with-border
+      h3.box-title #{items[0].type}
+     div.box-body
+      div.row
+       - each item in items
+          div.col-md-2
+           div.box.box-info
+            div.box-body.box-profile
+              img.img-responsive.center-block(data-toggle="tooltip", data-placement="bottom", style="height:222px; width:150px;" src= "#{item.img}")
+              br
+              h6.text-center #{item.title}
+              button(type="button",id="show_info",value="#{item.url}").btn.btn-primary.center-block
+                i.fa.fa-download
+                 |   Descargar
+              a(id="url",value="#{url}")
 
-        button(type="button",id="show_info",value="#{pelicula.enlace}").btn.btn-primary.center-block
-            i.fa.fa-download
-            |   Descargar
-        a(id="url",value="#{url}")
 
-        - count++
 
-  #basicModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='basicModal', aria-hidden='true')
+
+
+
+
+
+   #basicModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='basicModal', aria-hidden='true')
             .modal-dialog
                 .modal-content
                     .modal-header(style="background-color:#222d32;")

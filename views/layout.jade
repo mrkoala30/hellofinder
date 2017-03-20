@@ -7,6 +7,8 @@ html
     // Tell the browser to be responsive to screen width
     meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
     // Bootstrap 3.3.6
+    //effects
+
     link(rel='stylesheet', href='#{url}/bootstrap/css/bootstrap.min.css')
     -if(typeof styles != "undefined" && styles.length>=0)
      - each s in styles
@@ -35,6 +37,7 @@ html
     link(rel='stylesheet', href='#{url}/plugins/daterangepicker/daterangepicker.css')
     // bootstrap wºysihtml5 - text editor
     link(rel='stylesheet', href='#{url}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')
+
 
     // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
     // WARNING: Respond.js doesn't work if you view the page via file://
@@ -92,6 +95,10 @@ html
                 span.pull-right-container
                   i.fa.fa-angle-left.pull-right
               ul.treeview-menu
+                  li
+                    a(href='#{url}/find/start')
+                      i.fa.fa-circle-o
+                      |  Inicio
                   li
                     a(href='#{url}/find')
                       i.fa.fa-circle-o
@@ -327,6 +334,11 @@ html
     script(src='#{url}/dist/js/pages/dashboard.js')
     // AdminLTE for demo purposes
     script(src='#{url}/dist/js/demo.js')
+
+
+
+
+
 
 
 

@@ -16,6 +16,20 @@ router.get('/', function(req, res) {
     });
 });
 
+//get Peliculas Estrenos
+router.get('/start', function(req, res) {
+    var page = "http://www.newpct.com/";
+
+    utils.getPrincipalNew(page,function(err,response){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('start',{page_name:"Inicio",url:config.url.dir,pelis: response
+            });
+        }
+    });
+});
+
 router.get('/cine-alta-definicion-hd', function(req, res) {
     var page = "http://www.newpct.com/cine-alta-definicion-hd/";
     utils.getPage(page,function(err,response){
