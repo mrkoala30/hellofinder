@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.redirect('/find/start');
+  res.redirect('/find');
   //res.render('index', { url:config.url.dir,title: 'HelloFinder' });
 });
 
